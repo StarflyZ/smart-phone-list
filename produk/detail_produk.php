@@ -1,6 +1,16 @@
 <?php 
 include '../koneksi.php';
 $url = $_GET['url'];
+
+$sql = "SELECT * FROM produk WHERE url = '$url'";
+$res = mysqli_query($con, $sql);
+
+if(mysqli_num_rows($res) > 0){
+    $row = mysqli_fetch_assoc($res);
+    $nama = $row['nama'];
+    $url_gambar = $row['url_gambar'];
+    $deskripsi = $row['deskripsi_pendek'];
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,11 +19,8 @@ $url = $_GET['url'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $url; ?></title>
     <?php
-    $nama = "SELECT name FROM produk";
     echo '<meta property="og:title" content="' . $nama . '">';
-    $url_gambar = "SELECT url_gambar FROM produk";
     echo '<meta property="og:image" content="' . $url_gambar . '">';
-    $deskripsi = "SELECT deskripsi_pendek FROM produk";
     echo '<meta property="og:description" content="' . $deskripsi . '">';
     echo '<meta property="og:description" content="' . $url . '">';
     ?>
